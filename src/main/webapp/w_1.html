@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>专利公开日趋势</title>
+		<script src="./js/jquery-1.11.0.min.js"></script>
+		<script src="./js/echarts.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		<div id="main" style="width: 1000px;height:600px;"></div>
+		<script type="text/javascript">
+			var xData = function() {
+				var data = [];
+				for(var year = 13; year < 16; year++) {
+					if(year != 15) {
+						for(var month = 1; month < 13; month++) {
+							data.push(year + "-" + month);
+						}
+					} else {
+						for(var month = 1; month < 7; month++) {
+							data.push(year + "-" + month);
+						}
+					}
+				}
+				return data;
+			}();
+			// 基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById('main'));
+			myChart.setOption({
+				backgroundColor: "#344b58",
+				"title": {
+					"text": "专利公开日趋势",
+					x: "4%",
+
+					textStyle: {
+						color: '#fff',
+						fontSize: '22'
+					},
+					subtextStyle: {
+						color: '#90979c',
+						fontSize: '16',
+
+					},
+				},
+				"tooltip": {
+					"trigger": "axis",
+					"axisPointer": {
+						"type": "shadow",
+						textStyle: {
+							color: "#fff"
+						}
+
+					},
+				},
+				"grid": {
+					"borderWidth": 0,
+					"top": 110,
+					"bottom": 95,
+					textStyle: {
+						color: "#fff"
+					}
+				},
+				"legend": {
+					x: '4%',
+					top: '11%',
+					textStyle: {
+						color: '#90979c',
+					},
+					"data": ['数量']
+				},
+
+				"calculable": true,
+				"xAxis": [{
+					"type": "category",
+					"axisLine": {
+						lineStyle: {
+							color: '#90979c'
+						}
+					},
+					"splitLine": {
+						"show": false
+					},
+					"axisTick": {
+						"show": false
+					},
+					"splitArea": {
+						"show": false
+					},
+					"axisLabel": {
+						"interval": 0,
+
+					},
+					"data": xData,
+				}],
+				"yAxis": [{
+					"type": "value",
+					"splitLine": {
+						"show": false
+					},
+					"axisLine": {
+						lineStyle: {
+							color: '#90979c'
+						}
+					},
+					"axisTick": {
+						"show": false
+					},
+					"axisLabel": {
+						"interval": 0,
+
+					},
+					"splitArea": {
+						"show": false
+					},
+
+				}],
+				// 截取dataZoom开始
+				"dataZoom": [{
+					"show": true,
+					"height": 30,
+					"xAxisIndex": [
+						0
+					],
+					bottom: 30,
+					"start": 10,
+					"end": 80,
+					handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
+					handleSize: '110%',
+					handleStyle: {
+						color: "#d3dee5",
+
+					},
+					textStyle: {
+						color: "#fff"
+					},
+					borderColor: "#90979c"
+
+				}, {
+					"type": "inside",
+					"show": true,
+					"height": 15,
+					"start": 1,
+					"end": 35
+				}],
+				// 截取dataZoom结束
+				"series": [{
+					"name": "数量",
+					"type": "line",
+					"stack": "总量",
+					"itemStyle": {
+						"normal": {
+							"color": "rgba(0,191,183,1)",
+							"barBorderRadius": 0,
+							"label": {
+								"show": true,
+								"position": "top",
+								formatter: function(p) {
+									return p.value > 0 ? (p.value) : '';
+								}
+							}
+						}
+					},
+					data: []
+				}]
+			})
+			
+			var data;
+			$.ajax({
+				type: "get",
+				async: true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+				url: "/patent/getPublicityDateAndNumber", //请求发送到TestServlet处
+				dataType: "json", //返回数据形式为json
+				success: function(result) {
+					//请求成功时执行该函数内容，result即为服务器返回的json对象
+					if(result) {
+						//alert(result[2013]);
+						data = result['number'];
+						myChart.hideLoading(); //隐藏加载动画
+						myChart.setOption({ //加载数据图表
+							series: [{
+								// 根据名字对应到相应的系列
+								name: '数量',
+								data: data
+							}]
+						});
+
+					}
+
+				},
+				error: function(errorMsg) {
+					//请求失败时执行该函数
+					alert("图表请求数据失败!");
+					myChart.hideLoading();
+				}
+			});
+		</script>
+
+	</body>
+
+</html>

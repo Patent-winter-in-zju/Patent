@@ -93,7 +93,7 @@ public class PatentServiceImpl implements PatentService {
 	@Override
 	public List<PatentVo> findPublicityDateAndNumber() {
 		List<PatentVo> rest = patentVoMapper.findNumberByDay();
-		return null;
+		return rest;
 	}
 
 	@Override
@@ -111,6 +111,7 @@ public class PatentServiceImpl implements PatentService {
 				ArrayList<Integer> oldCount = result.get(code);
 				if(oldCount == null) {
 					oldCount = new ArrayList<Integer>();
+					result.put(code, oldCount);
 					oldCount.add(0);
 					oldCount.add(0);
 				}
@@ -125,7 +126,7 @@ public class PatentServiceImpl implements PatentService {
 			}
 		}
 		for(String key : result.keySet()) {
-			System.out.println(key + "::" + result.get(key));
+			System.out.println(key + "::" + result.get(key).get(0) + "::" + result.get(key).get(1));
 		}
 		System.out.println("__size " + result.size());
 		return result;
@@ -138,11 +139,11 @@ public class PatentServiceImpl implements PatentService {
 			String[] split = codes.split(";");
 			for(String ele : split) {
 				pos = ele.indexOf("/");
-				splits.add(ele.substring(0, pos + 3));
+				splits.add(ele.substring(0, 1));
 			}
 		} else {
 			pos = codes.indexOf("/");
-			splits.add(codes.substring(0, pos + 3));
+			splits.add(codes.substring(0, 1));
 		}
 		return splits;
 	}
