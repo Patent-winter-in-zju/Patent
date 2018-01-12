@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zju.visualization.mapper.PatentVoMapper">
+	<select id="findNumberByDay" resultType="zn.zju.visualization.vo.PatentVo">
+		select publicity_date, count(*) as count
+		from (select LEFT(publicity_date, 7) as publicity_date
+		from patent) as temp
+		GROUP BY publicity_date
+		order by publicity_date asc;
+	</select>
+	
+	<select id="findClassifyCodesAndCnount" resultType="zn.zju.visualization.vo.PatentVo">
+		SELECT classify_code, type, count(*) as count
+		FROM patent
+		WHERE type in ('发明专利','实用新型')
+		GROUP BY classify_code;
+	</select>
+</mapper>
