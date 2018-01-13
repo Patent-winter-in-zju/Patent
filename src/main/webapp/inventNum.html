@@ -112,15 +112,15 @@ var data2015 =[];
 $.ajax({
     type : "get",
     async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-    url : "/patent/getInventManNum",    //请求发送到TestServlet处
+    url : "/patent/getInventManNum2",    //请求发送到TestServlet处
     dataType : "json",        //返回数据形式为json
     success : function(result) {
         //请求成功时执行该函数内容，result即为服务器返回的json对象
         if (result) {
         	//alert(result[2013]);
-        	data2013 = result[2013];
-        	data2014 = result[2014];
-        	data2015 = result[2015];
+        	data2013 = result['2013'];
+        	data2014 = result['2014'];
+        	data2015 = result['2015'];
                myChart.hideLoading();    //隐藏加载动画
                myChart.setOption({        //加载数据图表
                    series: [{
