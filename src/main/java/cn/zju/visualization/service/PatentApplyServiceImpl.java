@@ -2,10 +2,12 @@ package cn.zju.visualization.service;
 
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.LinkedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +37,10 @@ public class PatentApplyServiceImpl implements PatentApplyService {
 	 */
 	@Override
 	public Map<String, Integer> findApplyAndNumber() {
+		//按照日期和专利数取出PatentApply实体List
 		LinkedList<PatentApply> rest = patentApplyMapper.findNumberByDate();
-		Map<String, Integer> result = new HashMap<String, Integer>();
+		Map<String, Integer> result = new LinkedHashMap<String, Integer>();
+		
 		Integer count = 0;
 		for(PatentApply patentApply : rest) {
 			String date=patentApply.getPublicityDate();

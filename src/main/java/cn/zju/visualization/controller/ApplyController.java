@@ -28,6 +28,4 @@ public class ApplyController {
 		return patentApplyService.findApplyAndNumber();
     }
 	
-	
-	
 }
