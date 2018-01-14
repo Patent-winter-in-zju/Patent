@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.zju.visualization.service.InventmanService;
 import cn.zju.visualization.service.PatentService;
 import zn.zju.visualization.vo.PatentVo;
 
 @Controller
 @RequestMapping("/patent")
 public class PatentController {
+	
+	@Autowired
+	private InventmanService inventmanService;
 
 	@Autowired
 	private PatentService patentService;
@@ -68,6 +72,12 @@ public class PatentController {
 			query2015.add("2015.0"+i);
 		}
 		return patentService.getAllPatenterNum(months,query2015);
+    }
+	
+	@RequestMapping("/getInventManNum2")
+	@ResponseBody
+	public Object getInventManNum2(HttpServletRequest request) {
+		return inventmanService.getAllPatenterNum();
     }
 	
 }

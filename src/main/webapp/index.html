@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>达内UID项目平台</title>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.js"></script>
+<script type="text/javascript" src="js/modernizr.js"></script>
+<script type="text/javascript" src="js/jquery_003.js"></script>
+<script type="text/javascript" src="js/jquery.js">
+</script>
+<!-- jQuery Flexslider -->
+<script type="text/javascript" src="js/jquery_002.js"></script>
+<script type="text/javascript">
+jQuery(window).load(function() {
+    jQuery('.flexslider').flexslider({
+          animation: "slade",              //String: Select your animation type, "fade" or "slide"
+		  directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
+		  controlNav: false,  //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+		  smoothHeight: true,
+		  start: function(slider){
+			  var currentSlide = jQuery(slider.slides[slider.currentSlide]);
+		  },
+		  before: function(slider){
+			  var currentSlide = jQuery(slider.slides[slider.animatingTo]);
+		  }
+        });
+});
+</script>	
+</head>
+
+<body>
+
+  <div class="banner">
+          <!-- SLIDER -->
+        <div id="outerslider">
+            <div id="slidercontainer">
+                <section id="slider">
+                    <div id="slideritems" class="flexslider preloader">
+                        <ul class="slides">
+                             
+
+                                                        <li style="background-image:url(images/1.png);">
+                              	
+                              	<a href="/inventNum.html" target="_blank" ><img src="images/1.png"></a>
+                                
+                            </li>
+                                                        <li style="background-image:url(images/2.png);">
+                              	<a href="/pie.html" target="_blank" ><img src="images/2.png"></a>       </li>
+                                
+<li style="background-image:url(images/3.png);">
+                              	<a href="/w_2.html" target="_blank" ><img src="images/3.png"></a>
+                                
+                            </li>
+                            
+<li style="background-image:url(images/4.png);">
+                              	<a href="/w_1.html" target="_blank" ><img src="images/4.png"></a>
+                                
+                            </li>
+
+<li style="background-image:url(images/1.png);">
+                              	<a href="/line_01.html" target="_blank" ><img src="images/1.png"></a>
+                                
+                            </li>
+                                                        
+                         </ul>
+                    </div>	
+                </section>
+            </div>
+        </div>
+        <!-- END SLIDER -->
+  </div>
+  <div class="content">
+    </div>
+  </div>
+  <div class="foot">
+    <div class="wrapper">
+      <div class="text">
+    </div>
+    </div>
+  </div>
+  <div class="top">
+    <div class="wrapper">
+      <div class="logo"></div>
+      <div class="logo3"></div>
+    </div>  
+  </div>
+</body>
+</html>
